@@ -8,6 +8,8 @@
 
 import UIKit
 import Foundation
+import Alamofire
+import SwiftyJSON
 
 class ViewController: UIViewController {
     
@@ -16,12 +18,161 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //self.urlReq()
-        self.postReq()
-        
+        //self.postReq()
+        //self.aFireGETReq()
+        self.aFirePOSTReq()
         // Do any additional setup after loading the view, typically from a nib.
-        
+        //self.aFirePOSTExample()
 
     }
+    
+   
+    func sendRequestRequest() {
+        /**
+         Request
+         POST http://ehas2-dev-load-balancer-1527675904.us-east-1.elb.amazonaws.com/upload_s3
+         */
+        
+        // Add Headers
+        let headers = [
+            "Authorization":"Bearer", //USERID TOKEN GOES HERE
+            "Content-Type":"application/x-www-form-urlencoded; charset=utf-8",
+            ]
+        
+        // Form URL-Encoded Body
+        let body = [
+            "folder":"Flanker_Data",
+            "upload":"STRING NAME FROM FILE IN DOCUMENTS DIRECTORY",
+            ]
+        
+        // Fetch Request
+        
+       // Alamofire.request(<#T##url: URLConvertible##URLConvertible#>, method: <#T##HTTPMethod#>, parameters: <#T##Parameters?#>, encoding: <#T##ParameterEncoding#>, headers: <#T##HTTPHeaders?#>)
+        Alamofire.request("http://ehas2-dev-load-balancer-1527675904.us-east-1.elb.amazonaws.com/upload_s3", method: .post, parameters: body, encoding: JSONEncoding.default, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                if (response.result.error == nil) {
+                    debugPrint("HTTP Response Body: \(response.data)")
+                }
+                else {
+                    debugPrint("HTTP Request failed: \(response.result.error)")
+                }
+        }
+    }
+    
+    func sendDataReq(fileURL : URL) {
+        let headers = [
+            "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29udGFjdElkIjoiMDAzbTAwMDAwMFd5WFpnQUFOIiwiZXhwIjoxNTEwMDc2NTQ1LCJpc3MiOiJsb2NhbGhvc3Q6ODA4MCJ9.GNZTfYJCwjQAY_1w-eHApQi9KnRATaIetp87XPOz0gE",
+            "Content-Type":"multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__",
+            ]
+        
+        let configuration = URLSessionConfiguration.default
+        configuration.httpAdditionalHeaders = headers
+        
+        let sessionManager = Alamofire.SessionManager(configuration: configuration)
+        
+        sessionManager.upload(multipartFormData: { multipartFormData in multipartFormData.append("Flanker_Data".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName: "folder")
+            multipartFormData.append(fileURL, withName: "upload")}, to: "http://ehas2-dev-load-balancer-1527675904.us-east-1.elb.amazonaws.com/upload_s3", encodingCompletion: { encodingResult in
+                switch encodingResult {
+                case .success(let upload, _, _): upload.responseJSON { response in debugPrint(response) }
+                    
+                case .failure(let encodingError): print(encodingError)
+                }
+        })
+    }
+
+    func aFireGETReq() {
+        Alamofire.request(todoEndpoint).responseJSON(completionHandler: { response in
+            guard response.result.error == nil else {
+                print("Error calling GET to /todos/1")
+                print(response.result.error!)
+                return
+            }
+            
+            if let value = response.result.value {
+                let todo = JSON(value)
+                
+                print("The todo is: " + todo.description)
+                if let title = todo["title"].string {
+                    
+                    print("The title is: " + title)
+                } else {
+                    print("error parsing /todos/1")
+                }
+            }
+            
+            
+        })
+    }
+    
+    func aFirePOSTExample() {
+        let parameters: Parameters = [
+            "foo": [1,2,3],
+            "bar": [
+                "baz": "qux"
+            ]
+        ]
+        
+        // Both calls are equivalent
+        Alamofire.request("https://httpbin.org/post", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON(completionHandler: { response in
+            
+            guard response.result.error == nil else {
+                print("some stuff")
+                return
+            }
+            
+            if let value = response.result.value {
+                print(value)
+                let todo = JSON(value)
+                print("The todo is: " + todo.description)
+            }
+            
+        })
+    }
+    
+    func aFirePOSTReq() {
+        let newTodo : Parameters = ["title": "Frist todo", "body": "I iz fisrt", "userId": 1, "completed": false]
+        
+        Alamofire.request("https://httpbin.org/post",method: .post, parameters: newTodo, encoding: JSONEncoding.default).responseJSON(completionHandler: { response in
+            
+            guard response.result.error == nil else {
+                print("Error calling post to /todos/1")
+                print(response.result.error ?? "Hey dumbass, this broke")
+                return
+            }
+            
+            if let value = response.result.value {
+                print(value)
+                let todo = JSON(value)
+                print("The to do is:" + todo.description)
+            }
+            
+        })
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     // MARK : Quick API GET call without authentication
     
     func urlReq() {
@@ -110,7 +261,7 @@ class ViewController: UIViewController {
         do {
             jsonTodo = try JSONSerialization.data(withJSONObject: newTodo, options: [])
             // adds the jsonObject to the httpBody
-            todosUrlRequest.httpBody = jsonTodo as Data
+            todosUrlRequest.httpBody = jsonTodo
         } catch {
             print("Error: cannot create JSON from todo")
             return
@@ -156,6 +307,12 @@ class ViewController: UIViewController {
         task.resume()
     }
 
+    
+    
+    
+    
+    
+    
 }
 
 
