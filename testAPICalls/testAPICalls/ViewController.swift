@@ -66,7 +66,7 @@ class ViewController: UIViewController {
             "Content-Type":"multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__",
             ]
         
-        let configuration = URLSessionConfiguration.default
+        let configuration = URLSessionConfiguration.background(withIdentifier: "http://ehas2-dev-load-balancer-1527675904.us-east-1.elb.amazonaws.com/upload_s3")
         configuration.httpAdditionalHeaders = headers
         
         let sessionManager = Alamofire.SessionManager(configuration: configuration)
