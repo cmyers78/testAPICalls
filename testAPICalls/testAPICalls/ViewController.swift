@@ -72,7 +72,7 @@ class ViewController: UIViewController {
         let sessionManager = Alamofire.SessionManager(configuration: configuration)
         
         sessionManager.upload(multipartFormData: { multipartFormData in multipartFormData.append("Flanker_Data".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName: "folder")
-            multipartFormData.append(fileURL, withName: "upload")}, to: "http://ehas2-dev-load-balancer-1527675904.us-east-1.elb.amazonaws.com/upload_s3", encodingCompletion: { encodingResult in
+            multipartFormData.append(fileURL, withName: "upload", fileName: "results.txt", mimeType: "txt/csv")}, to: "http://ehas2-dev-load-balancer-1527675904.us-east-1.elb.amazonaws.com/upload_s3", encodingCompletion: { encodingResult in
                 switch encodingResult {
                 case .success(let upload, _, _): upload.responseJSON { response in debugPrint(response) }
                     
