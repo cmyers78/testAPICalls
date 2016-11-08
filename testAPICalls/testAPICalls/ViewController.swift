@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     
     let sessionManager = NetworkManager()
     
+    
     let todoEndpoint: String = "http://jsonplaceholder.typicode.com/todos/1"
 
     override func viewDidLoad() {
@@ -22,10 +23,15 @@ class ViewController: UIViewController {
         //self.urlReq()
         //self.postReq()
         //self.aFireGETReq()
-        self.aFirePOSTReq()
+        //self.aFirePOSTReq()
         // Do any additional setup after loading the view, typically from a nib.
         //self.aFirePOSTExample()
 
+        //let backgroundTaskIdentifier : UIBackgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask(expirationHandler: {
+            <#code#>
+        //})
+        
+        
     }
     
    
@@ -50,6 +56,7 @@ class ViewController: UIViewController {
         // Fetch Request
         
        // Alamofire.request(<#T##url: URLConvertible##URLConvertible#>, method: <#T##HTTPMethod#>, parameters: <#T##Parameters?#>, encoding: <#T##ParameterEncoding#>, headers: <#T##HTTPHeaders?#>)
+        
         Alamofire.request("http://ehas2-dev-load-balancer-1527675904.us-east-1.elb.amazonaws.com/upload_s3", method: .post, parameters: body, encoding: JSONEncoding.default, headers: headers)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
@@ -65,7 +72,7 @@ class ViewController: UIViewController {
     func sendDataReq(fileURL : URL) {
         
         sessionManager.manager?.upload(multipartFormData: { multipartFormData in multipartFormData.append("Flanker_Data".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName: "folder")
-            multipartFormData.append(fileURL, withName: "upload", fileName: "results.txt", mimeType: "txt/csv")}, to: "http://ehas2-dev-load-balancer-1527675904.us-east-1.elb.amazonaws.com/upload_s3", encodingCompletion: { encodingResult in
+            multipartFormData.append(fileURL, withName: "upload"/*, fileName: "results.txt", mimeType: "txt/csv"*/)}, to: "http://ehas2-dev-load-balancer-1527675904.us-east-1.elb.amazonaws.com/upload_s3", encodingCompletion: { encodingResult in
                 switch encodingResult {
                 case .success(let upload, _, _): upload.responseJSON { response in debugPrint(response) }
                     

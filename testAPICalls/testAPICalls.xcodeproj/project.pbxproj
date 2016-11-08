@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C670EC111DD1FAC500585EB0 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C670EC101DD1FAC500585EB0 /* NetworkManager.swift */; };
+		C670EC131DD2170900585EB0 /* backgroundTimerRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C670EC121DD2170900585EB0 /* backgroundTimerRequest.swift */; };
 		C6826BA21DCD1090003A2509 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C69F2CA81DCD08AE009CE416 /* Alamofire.framework */; };
 		C6826BA41DCD1090003A2509 /* Pods_testAPICalls.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6826BA31DCD1090003A2509 /* Pods_testAPICalls.framework */; };
 		C68487C01DCCD74300584B05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68487BF1DCCD74300584B05 /* AppDelegate.swift */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		3A02DA32F0C7FF063B7E0CA4 /* Pods_testAPICalls.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_testAPICalls.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C670EC101DD1FAC500585EB0 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		C670EC121DD2170900585EB0 /* backgroundTimerRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = backgroundTimerRequest.swift; sourceTree = "<group>"; };
 		C6826BA31DCD1090003A2509 /* Pods_testAPICalls.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_testAPICalls.framework; path = "Pods/../build/Debug-iphoneos/Pods_testAPICalls.framework"; sourceTree = "<group>"; };
 		C68487BC1DCCD74300584B05 /* testAPICalls.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testAPICalls.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C68487BF1DCCD74300584B05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 			children = (
 				C68487BF1DCCD74300584B05 /* AppDelegate.swift */,
 				C68487C11DCCD74300584B05 /* ViewController.swift */,
+				C670EC121DD2170900585EB0 /* backgroundTimerRequest.swift */,
 				C670EC101DD1FAC500585EB0 /* NetworkManager.swift */,
 				C68487C31DCCD74300584B05 /* Main.storyboard */,
 				C68487C61DCCD74300584B05 /* Assets.xcassets */,
@@ -226,6 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C670EC111DD1FAC500585EB0 /* NetworkManager.swift in Sources */,
+				C670EC131DD2170900585EB0 /* backgroundTimerRequest.swift in Sources */,
 				C68487C21DCCD74300584B05 /* ViewController.swift in Sources */,
 				C68487C01DCCD74300584B05 /* AppDelegate.swift in Sources */,
 			);
