@@ -61,17 +61,9 @@ class ViewController: UIViewController {
     }
     
     func sendDataReq(fileURL : URL) {
-        let headers = [
-            "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29udGFjdElkIjoiMDAzbTAwMDAwMFd5WFpnQUFOIiwiZXhwIjoxNTEwMDc2NTQ1LCJpc3MiOiJsb2NhbGhvc3Q6ODA4MCJ9.GNZTfYJCwjQAY_1w-eHApQi9KnRATaIetp87XPOz0gE",
-            "Content-Type":"multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__",
-            ]
+        let sessionManager = NetworkManager()
         
-        let configuration = URLSessionConfiguration.background(withIdentifier: "http://ehas2-dev-load-balancer-1527675904.us-east-1.elb.amazonaws.com/upload_s3")
-        configuration.httpAdditionalHeaders = headers
-        
-        let sessionManager = Alamofire.SessionManager(configuration: configuration)
-        
-        sessionManager.upload(multipartFormData: { multipartFormData in multipartFormData.append("Flanker_Data".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName: "folder")
+        sessionManager.manager?.upload(multipartFormData: { multipartFormData in multipartFormData.append("Flanker_Data".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName: "folder")
             multipartFormData.append(fileURL, withName: "upload", fileName: "results.txt", mimeType: "txt/csv")}, to: "http://ehas2-dev-load-balancer-1527675904.us-east-1.elb.amazonaws.com/upload_s3", encodingCompletion: { encodingResult in
                 switch encodingResult {
                 case .success(let upload, _, _): upload.responseJSON { response in debugPrint(response) }
