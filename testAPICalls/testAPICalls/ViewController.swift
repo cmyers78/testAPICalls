@@ -13,6 +13,8 @@ import SwiftyJSON
 
 class ViewController: UIViewController {
     
+    let sessionManager = NetworkManager()
+    
     let todoEndpoint: String = "http://jsonplaceholder.typicode.com/todos/1"
 
     override func viewDidLoad() {
@@ -61,7 +63,6 @@ class ViewController: UIViewController {
     }
     
     func sendDataReq(fileURL : URL) {
-        let sessionManager = NetworkManager()
         
         sessionManager.manager?.upload(multipartFormData: { multipartFormData in multipartFormData.append("Flanker_Data".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName: "folder")
             multipartFormData.append(fileURL, withName: "upload", fileName: "results.txt", mimeType: "txt/csv")}, to: "http://ehas2-dev-load-balancer-1527675904.us-east-1.elb.amazonaws.com/upload_s3", encodingCompletion: { encodingResult in
