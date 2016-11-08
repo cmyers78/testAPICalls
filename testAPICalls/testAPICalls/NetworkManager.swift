@@ -16,6 +16,7 @@ class NetworkManager {
     init() {
         
         let headers = [
+            // make sure to have userID token
             "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiY29udGFjdElkIjoiMDAzbTAwMDAwMFd5WFpnQUFOIiwiZXhwIjoxNTEwMDc2NTQ1LCJpc3MiOiJsb2NhbGhvc3Q6ODA4MCJ9.GNZTfYJCwjQAY_1w-eHApQi9KnRATaIetp87XPOz0gE",
             "Content-Type":"multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__",
             ]
