@@ -20,16 +20,6 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.urlReq()
-        //self.postReq()
-        //self.aFireGETReq()
-        //self.aFirePOSTReq()
-        // Do any additional setup after loading the view, typically from a nib.
-        //self.aFirePOSTExample()
-
-        //let backgroundTaskIdentifier : UIBackgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask(expirationHandler: {
-            <#code#>
-        //})
         
         
     }
