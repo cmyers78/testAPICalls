@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C626B1F31DF81D4300413C67 /* PKCSImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C626B1F21DF81D4300413C67 /* PKCSImport.swift */; };
+		C626B1F51DF81EAA00413C67 /* devclient.p12 in Resources */ = {isa = PBXBuildFile; fileRef = C626B1F41DF81EAA00413C67 /* devclient.p12 */; };
 		C670EC111DD1FAC500585EB0 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C670EC101DD1FAC500585EB0 /* NetworkManager.swift */; };
 		C6826BA21DCD1090003A2509 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C69F2CA81DCD08AE009CE416 /* Alamofire.framework */; };
 		C6826BA41DCD1090003A2509 /* Pods_testAPICalls.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6826BA31DCD1090003A2509 /* Pods_testAPICalls.framework */; };
@@ -20,6 +22,8 @@
 
 /* Begin PBXFileReference section */
 		3A02DA32F0C7FF063B7E0CA4 /* Pods_testAPICalls.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_testAPICalls.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C626B1F21DF81D4300413C67 /* PKCSImport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKCSImport.swift; sourceTree = "<group>"; };
+		C626B1F41DF81EAA00413C67 /* devclient.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; name = devclient.p12; path = ../../../../Downloads/devclient.p12; sourceTree = "<group>"; };
 		C670EC101DD1FAC500585EB0 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		C6826BA31DCD1090003A2509 /* Pods_testAPICalls.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_testAPICalls.framework; path = "Pods/../build/Debug-iphoneos/Pods_testAPICalls.framework"; sourceTree = "<group>"; };
 		C68487BC1DCCD74300584B05 /* testAPICalls.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testAPICalls.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -94,9 +98,11 @@
 				C68487C11DCCD74300584B05 /* ViewController.swift */,
 				C670EC101DD1FAC500585EB0 /* NetworkManager.swift */,
 				C68487C31DCCD74300584B05 /* Main.storyboard */,
+				C626B1F41DF81EAA00413C67 /* devclient.p12 */,
 				C68487C61DCCD74300584B05 /* Assets.xcassets */,
 				C68487C81DCCD74300584B05 /* LaunchScreen.storyboard */,
 				C68487CB1DCCD74300584B05 /* Info.plist */,
+				C626B1F21DF81D4300413C67 /* PKCSImport.swift */,
 			);
 			path = testAPICalls;
 			sourceTree = "<group>";
@@ -164,6 +170,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C626B1F51DF81EAA00413C67 /* devclient.p12 in Resources */,
 				C68487CA1DCCD74300584B05 /* LaunchScreen.storyboard in Resources */,
 				C68487C71DCCD74300584B05 /* Assets.xcassets in Resources */,
 				C68487C51DCCD74300584B05 /* Main.storyboard in Resources */,
@@ -228,6 +235,7 @@
 				C670EC111DD1FAC500585EB0 /* NetworkManager.swift in Sources */,
 				C68487C21DCCD74300584B05 /* ViewController.swift in Sources */,
 				C68487C01DCCD74300584B05 /* AppDelegate.swift in Sources */,
+				C626B1F31DF81D4300413C67 /* PKCSImport.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

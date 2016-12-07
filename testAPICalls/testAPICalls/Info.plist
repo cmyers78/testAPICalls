@@ -6,9 +6,13 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>jsonplaceholder.typicode.com</key>
+			<key>healthyagingmobileapp-dev.emory.edu</key>
 			<dict>
-				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSExceptionRequiresForwardSecrecy</key>
+				<false/>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
 		</dict>

@@ -21,6 +21,16 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let testString = "This is a test.  this is only a test."
+        
+        self.writeDataToFile(content: testString)
+        let filePath = self.getDocumentsDirectory()
+        print(filePath)
+        let completedURL = filePath.appendingPathComponent("Testing_file_upload.txt")
+        
+        self.sendDataReq(fileURL: completedURL)
+        
+        
         
     }
     
@@ -62,7 +72,7 @@ class ViewController: UIViewController {
     func sendDataReq(fileURL : URL) {
         
         sessionManager.manager?.upload(multipartFormData: { multipartFormData in multipartFormData.append("Flanker_Data".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName: "folder")
-            multipartFormData.append(fileURL, withName: "upload"/*, fileName: "results.txt", mimeType: "txt/csv"*/)}, to: "http://ehas2-dev-load-balancer-1527675904.us-east-1.elb.amazonaws.com/upload_s3", encodingCompletion: { encodingResult in
+            multipartFormData.append(fileURL, withName: "upload"/*, fileName: "results.txt", mimeType: "txt/csv"*/)}, to: "https://healthyagingmobileapp-dev.emory.edu/upload_s3", encodingCompletion: { encodingResult in
                 switch encodingResult {
                 case .success(let upload, _, _): upload.responseJSON { response in debugPrint(response) }
                     
@@ -297,9 +307,34 @@ class ViewController: UIViewController {
         task.resume()
     }
 
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsDirectory = paths[0]
+        print("here comes the directory name:")
+        print()
+        print()
+        
+        return documentsDirectory
+    }
+
     
-    
-    
+    func writeDataToFile(content: String) {
+        let data = content
+        let filePath = getDocumentsDirectory()
+        
+        let completedFileName = "Testing_file_upload.txt"
+        
+        
+        let fileURL = filePath.appendingPathComponent(completedFileName)
+        
+        do {
+            try data.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
+            print("write successful")
+            
+        } catch {
+            print("There was an error writing the file")
+        }
+    }
     
     
     
