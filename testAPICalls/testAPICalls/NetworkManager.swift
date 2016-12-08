@@ -15,19 +15,21 @@ class NetworkManager {
     
     init() {
         
+        
+//        let headers = [
+//            // make sure to have userID token
+//            "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiY29udGFjdElkIjoiMDAzbTAwMDAwMFd5WFpnQUFOIiwiZXhwIjoxNTExOTc2NjczLCJpc3MiOiJsb2NhbGhvc3Q6ODA4MCJ9.BLQFBanzFNWH0yhSKRjXORV3dE14bP9asoKATdDzV58",
+//            "Content-Type":"multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__",
+//            ]
+//
+//        let configuration = URLSessionConfiguration.background(withIdentifier: "http://healthyagingmobileapp-dev.emory.edu/upload_s3")
+//        configuration.httpAdditionalHeaders = headers
+        
         let serverTrustPolicy : [String : ServerTrustPolicy] = [
             "healthyagingmobile-dev.emory.edu" : ServerTrustPolicy.disableEvaluation
         ]
-        
-        let headers = [
-            // make sure to have userID token
-            "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiY29udGFjdElkIjoiMDAzbTAwMDAwMFd5WFpnQUFOIiwiZXhwIjoxNTExOTc2NjczLCJpc3MiOiJsb2NhbGhvc3Q6ODA4MCJ9.BLQFBanzFNWH0yhSKRjXORV3dE14bP9asoKATdDzV58",
-            "Content-Type":"multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__",
-            ]
 
-        let configuration = URLSessionConfiguration.background(withIdentifier: "http://healthyagingmobileapp-dev.emory.edu/upload_s3")
-        configuration.httpAdditionalHeaders = headers
-        manager = Alamofire.SessionManager(configuration: configuration, serverTrustPolicyManager : ServerTrustPolicyManager(policies: serverTrustPolicy))
+        manager = Alamofire.SessionManager(serverTrustPolicyManager : ServerTrustPolicyManager(policies: serverTrustPolicy))
         
         let cert = PKCSImport.init(mainBundleResource: "devclient", resourceType: "p12", password: "")
         

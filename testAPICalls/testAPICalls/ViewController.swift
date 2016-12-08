@@ -35,44 +35,51 @@ class ViewController: UIViewController {
     }
     
    
-    func sendRequestRequest() {
-        /**
-         Request
-         POST http://ehas2-dev-load-balancer-1527675904.us-east-1.elb.amazonaws.com/upload_s3
-         */
-        
-        // Add Headers
-        let headers = [
-            "Authorization":"Bearer", //USERID TOKEN GOES HERE
-            "Content-Type":"application/x-www-form-urlencoded; charset=utf-8",
-            ]
-        
-        // Form URL-Encoded Body
-        let body = [
-            "folder":"Flanker_Data",
-            "upload":"STRING NAME FROM FILE IN DOCUMENTS DIRECTORY",
-            ]
-        
-        // Fetch Request
-        
-       // Alamofire.request(<#T##url: URLConvertible##URLConvertible#>, method: <#T##HTTPMethod#>, parameters: <#T##Parameters?#>, encoding: <#T##ParameterEncoding#>, headers: <#T##HTTPHeaders?#>)
-        
-        Alamofire.request("http://ehas2-dev-load-balancer-1527675904.us-east-1.elb.amazonaws.com/upload_s3", method: .post, parameters: body, encoding: JSONEncoding.default, headers: headers)
-            .validate(statusCode: 200..<300)
-            .responseJSON { response in
-                if (response.result.error == nil) {
-                    debugPrint("HTTP Response Body: \(response.data)")
-                }
-                else {
-                    debugPrint("HTTP Request failed: \(response.result.error)")
-                }
-        }
-    }
+//    func sendRequestRequest() {
+//        /**
+//         Request
+//         POST http://ehas2-dev-load-balancer-1527675904.us-east-1.elb.amazonaws.com/upload_s3
+//         */
+//        
+//        // Add Headers
+//        let headers = [
+//            "Authorization":"Bearer", //USERID TOKEN GOES HERE
+//            "Content-Type":"application/x-www-form-urlencoded; charset=utf-8",
+//            ]
+//        
+//        // Form URL-Encoded Body
+//        let body = [
+//            "folder":"Flanker_Data",
+//            "upload":"STRING NAME FROM FILE IN DOCUMENTS DIRECTORY",
+//            ]
+//        
+//        // Fetch Request
+//        
+//       // Alamofire.request(<#T##url: URLConvertible##URLConvertible#>, method: <#T##HTTPMethod#>, parameters: <#T##Parameters?#>, encoding: <#T##ParameterEncoding#>, headers: <#T##HTTPHeaders?#>)
+//        
+//        Alamofire.request("http://ehas2-dev-load-balancer-1527675904.us-east-1.elb.amazonaws.com/upload_s3", method: .post, parameters: body, encoding: JSONEncoding.default, headers: headers)
+//            .validate(statusCode: 200..<300)
+//            .responseJSON { response in
+//                if (response.result.error == nil) {
+//                    debugPrint("HTTP Response Body: \(response.data)")
+//                }
+//                else {
+//                    debugPrint("HTTP Request failed: \(response.result.error)")
+//                }
+//        }
+//    }
     
     func sendDataReq(fileURL : URL) {
         
+        let headers = [
+            // make sure to have userID token
+            "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiY29udGFjdElkIjoiMDAzbTAwMDAwMFd5WFpnQUFOIiwiZXhwIjoxNTExOTc2NjczLCJpc3MiOiJsb2NhbGhvc3Q6ODA4MCJ9.BLQFBanzFNWH0yhSKRjXORV3dE14bP9asoKATdDzV58",
+            "Content-Type":"multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__",
+            ]
+
+        
         sessionManager.manager?.upload(multipartFormData: { multipartFormData in multipartFormData.append("Flanker_Data".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName: "folder")
-            multipartFormData.append(fileURL, withName: "upload"/*, fileName: "results.txt", mimeType: "txt/csv"*/)}, to: "https://healthyagingmobileapp-dev.emory.edu/upload_s3", encodingCompletion: { encodingResult in
+            multipartFormData.append(fileURL, withName: "upload"/*, fileName: "results.txt", mimeType: "txt/csv"*/)}, to: "https://healthyagingmobileapp-dev.emory.edu/upload_s3", headers: headers, encodingCompletion: { encodingResult in
                 switch encodingResult {
                 case .success(let upload, _, _): upload.responseJSON { response in debugPrint(response) }
                     
@@ -80,6 +87,12 @@ class ViewController: UIViewController {
                 }
         })
     }
+    
+//    func sendContactReq(s_path : String, date_time : String) {
+//        Alamofire.upload(multipartFormData: <#T##(MultipartFormData) -> Void#>, usingThreshold: <#T##UInt64#>, to: <#T##URLConvertible#>, method: <#T##HTTPMethod#>, headers: <#T##HTTPHeaders?#>, encodingCompletion: <#T##((SessionManager.MultipartFormDataEncodingResult) -> Void)?##((SessionManager.MultipartFormDataEncodingResult) -> Void)?##(SessionManager.MultipartFormDataEncodingResult) -> Void#>)
+//        
+//        
+//    }
 
     func aFireGETReq() {
         Alamofire.request(todoEndpoint).responseJSON(completionHandler: { response in
