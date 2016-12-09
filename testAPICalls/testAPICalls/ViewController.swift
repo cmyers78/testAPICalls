@@ -14,6 +14,13 @@ import SwiftyJSON
 class ViewController: UIViewController {
     
     let sessionManager = NetworkManager()
+    let flankerManager = NetworkManager()
+    
+    let headers = [
+        // make sure to have userID token
+        "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiY29udGFjdElkIjoiMDAzbTAwMDAwMFd5WFpnQUFOIiwiZXhwIjoxNTExOTc2NjczLCJpc3MiOiJsb2NhbGhvc3Q6ODA4MCJ9.BLQFBanzFNWH0yhSKRjXORV3dE14bP9asoKATdDzV58",
+        "Content-Type":"multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__",
+        ]
     
     
     let todoEndpoint: String = "http://jsonplaceholder.typicode.com/todos/1"
@@ -29,7 +36,7 @@ class ViewController: UIViewController {
         let completedURL = filePath.appendingPathComponent("Testing_file_upload.txt")
         
         self.sendDataReq(fileURL: completedURL)
-        
+        self.sendContactReq(userID: "testing_billygates", dateTime: "Friday, Dec 9 2016")
         
         
     }
@@ -71,15 +78,8 @@ class ViewController: UIViewController {
     
     func sendDataReq(fileURL : URL) {
         
-        let headers = [
-            // make sure to have userID token
-            "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiY29udGFjdElkIjoiMDAzbTAwMDAwMFd5WFpnQUFOIiwiZXhwIjoxNTExOTc2NjczLCJpc3MiOiJsb2NhbGhvc3Q6ODA4MCJ9.BLQFBanzFNWH0yhSKRjXORV3dE14bP9asoKATdDzV58",
-            "Content-Type":"multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__",
-            ]
-
-        
         sessionManager.manager?.upload(multipartFormData: { multipartFormData in multipartFormData.append("Flanker_Data".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName: "folder")
-            multipartFormData.append(fileURL, withName: "upload"/*, fileName: "results.txt", mimeType: "txt/csv"*/)}, to: "https://healthyagingmobileapp-dev.emory.edu/upload_s3", headers: headers, encodingCompletion: { encodingResult in
+            multipartFormData.append(fileURL, withName: "upload"/*, fileName: "results.txt", mimeType: "txt/csv"*/)}, to: "https://healthyagingmobileapp-dev.emory.edu/upload_s3", headers: self.headers, encodingCompletion: { encodingResult in
                 switch encodingResult {
                 case .success(let upload, _, _): upload.responseJSON { response in debugPrint(response) }
                     
@@ -88,11 +88,18 @@ class ViewController: UIViewController {
         })
     }
     
-//    func sendContactReq(s_path : String, date_time : String) {
-//        Alamofire.upload(multipartFormData: <#T##(MultipartFormData) -> Void#>, usingThreshold: <#T##UInt64#>, to: <#T##URLConvertible#>, method: <#T##HTTPMethod#>, headers: <#T##HTTPHeaders?#>, encodingCompletion: <#T##((SessionManager.MultipartFormDataEncodingResult) -> Void)?##((SessionManager.MultipartFormDataEncodingResult) -> Void)?##(SessionManager.MultipartFormDataEncodingResult) -> Void#>)
-//        
-//        
-//    }
+    func sendContactReq(userID : String, dateTime : String) {
+        
+        flankerManager.manager?.upload(multipartFormData: { multipartFormData in multipartFormData.append("\(dateTime)".data(using: .utf8, allowLossyConversion: false)!, withName: "date_time")
+            multipartFormData.append("\(userID)".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName :"s_path")
+        }, usingThreshold: UInt64.init(), to: "https://healthyagingmobileapp-dev.emory.edu/contactgame/flanker", method: .post, headers: self.headers, encodingCompletion: { encodingResult in
+            switch encodingResult {
+            case .success(let upload, _, _): upload.responseJSON { response in debugPrint(response) }
+                
+            case .failure(let encodingError): print(encodingError)
+            }
+        })
+    }
 
     func aFireGETReq() {
         Alamofire.request(todoEndpoint).responseJSON(completionHandler: { response in
