@@ -171,30 +171,9 @@ class ViewController: UIViewController {
         
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     // MARK : Quick API GET call without authentication
-    
     func urlReq() {
         // Set up URL Request
         let todoEndpoint: String = "http://jsonplaceholder.typicode.com/todos/1"
