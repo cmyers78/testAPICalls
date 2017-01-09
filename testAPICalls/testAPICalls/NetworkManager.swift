@@ -26,12 +26,12 @@ class NetworkManager {
 //        configuration.httpAdditionalHeaders = headers
         
         let serverTrustPolicy : [String : ServerTrustPolicy] = [
-            "healthyagingmobile-dev.emory.edu" : ServerTrustPolicy.disableEvaluation
+            "healthyagingmobile-qa.emory.edu" : ServerTrustPolicy.disableEvaluation
         ]
 
         manager = Alamofire.SessionManager(serverTrustPolicyManager : ServerTrustPolicyManager(policies: serverTrustPolicy))
         
-        let cert = PKCSImport.init(mainBundleResource: "devclient", resourceType: "p12", password: "")
+        let cert = PKCSImport.init(mainBundleResource: "qaclient", resourceType: "p12", password: "")
         
         manager?.delegate.sessionDidReceiveChallenge = { session, challenge in
             if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodClientCertificate {

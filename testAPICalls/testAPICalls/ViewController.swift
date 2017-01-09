@@ -27,16 +27,19 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        sendRequestRequest(uname: "", pword: "")
         
-        let testString = "This is a test.  this is only a test."
         
-        self.writeDataToFile(content: testString)
-        let filePath = self.getDocumentsDirectory()
-        print(filePath)
-        let completedURL = filePath.appendingPathComponent("Testing_file_upload.txt")
-        
-        self.sendDataReq(fileURL: completedURL)
-        self.sendContactReq(userID: "testing_billygates", dateTime: "Friday, Dec 9 2016")
+//        let testString = "This is a test.  this is only a test."
+//        
+//        self.writeDataToFile(content: testString)
+//        let filePath = self.getDocumentsDirectory()
+//        print(filePath)
+//        let completedURL = filePath.appendingPathComponent("Testing_file_upload.txt")
+//        
+//        self.sendDataReq(fileURL: completedURL)
+//        self.sendContactReq(userID: "testing_billygates", dateTime: "Friday, Dec 9 2016")
         
         
     }
@@ -75,6 +78,44 @@ class ViewController: UIViewController {
 //                }
 //        }
 //    }
+    
+    
+    func sendRequestRequest(uname : String, pword : String) {
+        /**
+         Request
+         post https://healthyagingmobileapp-dev.emory.edu/salesforce/login
+         */
+        
+        
+        let headers = [
+            "Content-Type":"multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__",
+            ]
+        
+        
+        // Fetch Request
+        sessionManager.manager?.upload(multipartFormData: { multipartFormData in
+            multipartFormData.append("\(uname)".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName :"username")
+            print()
+            print("GOING TO UTAH")
+            //print(self.username!)
+            multipartFormData.append("\(pword)".data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName :"password")
+            //print(self.password!)
+        }, usingThreshold: UInt64.init(), to: "https://healthyagingmobileapp-qa.emory.edu/salesforce/login", method: .post, headers: headers, encodingCompletion: { encodingResult in
+            switch encodingResult {
+            case .success(let upload, _, _):
+                upload.responseJSON { response in
+                    debugPrint(response)
+                    print("here comes the response...")
+                    print(response)
+                   
+                }
+            case .failure(let encodingError):
+                print(encodingError)
+
+            }
+        })
+    }
+
     
     func sendDataReq(fileURL : URL) {
         
